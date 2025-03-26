@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Generator</title>
+</head>
+<body>
+    <h2>Generate Double Extension File</h2>
+    <label for="dimension">Enter Dimension:</label>
+    <input type="text" id="dimension" placeholder="e.g., 100x200">
+    <br><br>
+    <label for="extension">Enter Extension:</label>
+    <input type="text" id="extension" placeholder="e.g., txt">
+    <br><br>
+    <button onclick="generateFiles()">Generate Files</button>
+    <br><br>
+    <div id="downloadLinks"></div>
+
+    <script>
+        function generateFiles() {
+            const dimension = document.getElementById('dimension').value;
+            const extension = document.getElementById('extension').value;
+            if (!dimension || !extension) {
+                alert("Please enter both dimension and extension.");
+                return;
+            }
+            
+            const content = `Dimension: ${dimension}\nGenerated File with double extension`;
+            const fileName = `file.${extension}.${extension}`;
+            
+            const blob = new Blob([content], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = fileName;
+            link.textContent = `Download ${fileName}`;
+            
+            const downloadDiv = document.getElementById("downloadLinks");
+            downloadDiv.innerHTML = "";
+            downloadDiv.appendChild(link);
+        }
+    </script>
+</body>
+</html>
